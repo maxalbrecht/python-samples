@@ -11,20 +11,9 @@ def End_of_Year_Balance(balance, annualInterestRate, monthlyPaymentRate):
     months_left = 12
     while months_left > 0:
         balance = (
-            (
-                balance
-                -(
-                    balance
-                    * monthlyPaymentRate
-                 )
-                
+            (balance - (balance * monthlyPaymentRate))
+            *(1 + ((annualInterestRate/12.0)))
             )
-            *(
-                1
-                +((annualInterestRate/12.0))
-            )
-            
-        )
         months_left -= 1
     print(round(balance,2))
 ###########################################################################
@@ -37,14 +26,7 @@ def Min_Payment_to_Pay_off_Card(balance, annualInterestRate, payment=.38):
     balance0 = balance
     months_left = 12
     while months_left > 0:
-        balance = (
-            (balance - payment)
-            *(
-                1
-                +((annualInterestRate/12.0))
-            )
-            
-        )
+        balance = ((balance - payment) * (1 + ((annualInterestRate/12.0))))
         months_left -= 1
     if balance <0:
         print(round(payment,2))
@@ -65,18 +47,7 @@ def Min_Payment_to_Pay_off_Card_Bisect(
         lower_bound = balance/12
         ##print('lower bound:' +str(lower_bound))
     if upper_bound == 0:
-        upper_bound = (
-            (
-                balance
-                *(
-                    (
-                        1
-                        +(annualInterestRate/12)
-                    )**12
-                 )
-            )
-            /12.0
-        )
+        upper_bound = ((balance * ((1 + (annualInterestRate/12))**12))/12.0)
         ##print('upper bound: ' +str(upper_bound))
     var = .01
     balance0 = balance
@@ -84,14 +55,7 @@ def Min_Payment_to_Pay_off_Card_Bisect(
     months_left = 12
     #######
     while months_left > 0:
-        balance = (
-            (balance - payment)
-            *(
-                1
-                +((annualInterestRate/12.0))
-            )
-            
-        )
+        balance = ((balance - payment) * (1 + ((annualInterestRate/12.0))))
         months_left -= 1
     #######
     if balance <= (-var):
